@@ -1,0 +1,15 @@
+# React Navigation for navigation
+npm install @react-navigation/native
+npm install @react-navigation/stack
+
+# Async Storage for local data storage
+npm install @react-native-async-storage/async-storage
+
+# React Native Image Picker for camera and gallery access
+npm install react-native-image-picker
+
+# React Query for data fetching and caching
+npm install @tanstack/react-query
+
+# Splash Screen for displaying a splash screen
+npm install react-native-splash-screen

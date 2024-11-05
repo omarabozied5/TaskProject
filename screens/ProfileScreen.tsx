@@ -7,6 +7,7 @@ import {
   launchImageLibrary,
   CameraOptions,
 } from 'react-native-image-picker';
+import { useNavigation } from '@react-navigation/native';
 
 import {
   StyleSheet,
@@ -20,21 +21,20 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
 interface ProfileScreenProps {
   navigation: {
     goBack: () => void;
   };
 }
 
-
 interface ImageData {
   id: string;
-  source: any; 
+  source: any;
 }
 
 export default function ProfileScreen({}: ProfileScreenProps) {
-  type MediaType = 'photo' | 'video' | 'mixed'; 
+  const navigation = useNavigation();
+  type MediaType = 'photo' | 'video' | 'mixed';
 
   const [email, setEmail] = useState<string>('');
   const [profileImage, setProfileImage] = useState<string | null>(null);
@@ -50,6 +50,11 @@ export default function ProfileScreen({}: ProfileScreenProps) {
     getEmail();
   }, []);
 
+  const handleLogOut = async () => {
+    await AsyncStorage.removeItem('userEmail');
+    navigation.goBack();
+  };
+
   const openCamera = () => {
     const options: CameraOptions = {
       mediaType: 'photo' as MediaType,
@@ -64,12 +69,12 @@ export default function ProfileScreen({}: ProfileScreenProps) {
       ) {
         setProfileImage(response.assets[0].uri ?? null);
       }
-      setModalVisible(false); 
+      setModalVisible(false);
     });
   };
 
   const openGallery = () => {
-    const options = { mediaType: 'photo', quality: 1 };
+    const options = { mediaType: 'photo' as MediaType, quality: 1 };
     launchImageLibrary(options, (response) => {
       if (
         !response.didCancel &&
@@ -77,14 +82,14 @@ export default function ProfileScreen({}: ProfileScreenProps) {
         response.assets &&
         response.assets.length > 0
       ) {
-        setProfileImage(response.assets[0].uri);
+        setProfileImage(response.assets[0].uri ?? null);
       }
-      setModalVisible(false); 
+      setModalVisible(false);
     });
   };
 
   const handleUpdateProfile = () => {
-    setModalVisible(true); 
+    setModalVisible(true);
   };
 
   const images: ImageData[] = [
@@ -99,7 +104,6 @@ export default function ProfileScreen({}: ProfileScreenProps) {
     { id: '9', source: require('../assets/images/333.jpg') },
   ];
 
-  
   const renderItem = ({ item }: ListRenderItemInfo<ImageData>) => (
     <View style={styles.imageContainer}>
       <Image source={item.source} style={styles.image} />
@@ -116,7 +120,7 @@ export default function ProfileScreen({}: ProfileScreenProps) {
           style={styles.profile}
         />
         <Text style={styles.email}>{email}</Text>
-        <Text style={styles.title}>OMAR ABOZEID</Text>
+        {/* <Text style={styles.title}>OMAR ABOZEID</Text> */}
         <TouchableOpacity style={styles.btns} onPress={handleUpdateProfile}>
           <Text style={styles.socialText}>Update Profile</Text>
         </TouchableOpacity>
@@ -141,8 +145,8 @@ export default function ProfileScreen({}: ProfileScreenProps) {
         <TouchableOpacity style={styles.btns}>
           <Text style={styles.socialText}>Follow</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.btns}>
-          <Text style={styles.socialText}>Message</Text>
+        <TouchableOpacity style={styles.logOutBtns} onPress={handleLogOut}>
+          <Text style={styles.socialText}>LogOut</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.flatContainer}>
@@ -191,8 +195,8 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   header: {
-    marginTop: 70,
-    alignItems: 'center', 
+    marginTop: 10,
+    alignItems: 'center',
   },
   profile: {
     width: 150,
@@ -211,7 +215,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: '800',
     color: '#8b1717',
-    marginTop: 5, 
+    marginTop: 5,
   },
   follows: {
     flexDirection: 'row',
@@ -246,6 +250,15 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ddd',
   },
+  logOutBtns: {
+    width: 150,
+    alignItems: 'center',
+    backgroundColor: '#8b1717',
+    padding: 15,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#ddd',
+  },
   socialText: {
     fontSize: 18,
     fontWeight: '700',
@@ -271,7 +284,7 @@ const styles = StyleSheet.create({
   },
 
   flatContainer: {
-    flex: 1, 
+    flex: 1,
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
@@ -311,5 +324,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
   },
-  
 });
