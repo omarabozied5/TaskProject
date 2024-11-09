@@ -9,6 +9,7 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
+  Image,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { useLoginMutation } from '../hooks/useLoginMutation';
@@ -28,10 +29,14 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const resetFields = () => {
+    setEmail('');
+    setPassword('');
+  };
 
   const { t } = useTranslation();
 
-  const mutation = useLoginMutation(navigation);
+  const mutation = useLoginMutation(navigation, resetFields);
 
   const handleLogin = () => {
     let isValid = true;
@@ -109,15 +114,25 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
           <Text style={styles.orText}>{t('login.orLogin')}</Text>
           <View style={styles.socialLoginContainer}>
             <TouchableOpacity style={styles.socialBtn}>
-              <Icon name="google" size={24} color="#db4437" />
+              {/* <Icon name="google" size={24} color="#db4437" /> */}
+              <Image
+                style={{ width: 30, height: 30 }}
+                source={require('../assets/gmail.png')}
+              />
               <Text style={styles.socialText}>{t('social.google')}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.socialBtn}>
-              <Icon name="linkedin" size={24} color="#0A66C2" />
+              <Image
+                style={{ width: 30, height: 30 }}
+                source={require('../assets/linkedin.png')}
+              />
               <Text style={styles.socialText}>{t('social.linkedin')}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.socialBtn}>
-              <Icon name="facebook" size={24} color="#1877F2" />
+              <Image
+                style={{ width: 30, height: 30 }}
+                source={require('../assets/facebook.png')}
+              />
               <Text style={styles.socialText}>{t('social.facebook')}</Text>
             </TouchableOpacity>
           </View>
@@ -211,6 +226,7 @@ const styles = StyleSheet.create({
   socialLoginContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
+    gap: 20,
   },
   socialBtn: {
     flexDirection: 'row',

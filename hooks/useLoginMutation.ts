@@ -13,6 +13,7 @@ type LoginData = {
 
 export function useLoginMutation(
   navigation: NativeStackNavigationProp<RootStackParamList, 'Login'>,
+  resetFields: () => void,
 ) {
   return useMutation<LoginResponse, Error, LoginData>({
     mutationFn: async (variables) => {
@@ -24,11 +25,13 @@ export function useLoginMutation(
     },
     onError: (error) => {
       console.error('Login failed:', error);
+
       throw new Error('Invalid email or password');
     },
     onSuccess: async (data, variables) => {
       console.log('Login successful:', data);
       await AsyncStorage.setItem('userEmail', variables.email);
+      resetFields();
       navigation.navigate('Main');
     },
   });

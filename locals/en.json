@@ -32,5 +32,9 @@
   "newUser": {
     "new-user": "New user?",
     "createnew": "Create new account"
+  },
+  "tap": {
+    "profile": "Profile",
+    "users": "Users"
   }
 }

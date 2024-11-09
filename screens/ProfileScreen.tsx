@@ -211,16 +211,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    fontSize: 25,
+    fontSize: 20,
     color: '#8b1717',
     fontWeight: 'bold',
     marginBottom: 5,
   },
   email: {
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: '800',
     color: '#8b1717',
     marginTop: 5,
+    marginBottom: 5,
   },
   follows: {
     flexDirection: 'row',

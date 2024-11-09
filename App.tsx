@@ -27,10 +27,12 @@ const queryClient = new QueryClient();
 const Stack = createNativeStackNavigator();
 
 function TabNavigator() {
+  const { t } = useTranslation();
+
   return (
     <Tab.Navigator>
       <Tab.Screen
-        name="Profile"
+        name={t('tap.profile')}
         component={ProfileScreen}
         options={{
           tabBarIcon: ({ color, size }: TabBarIconProps) => (
@@ -43,7 +45,7 @@ function TabNavigator() {
         }}
       />
       <Tab.Screen
-        name="Items"
+        name={t('tap.users')}
         component={FlatListScreen}
         options={{
           tabBarIcon: ({ color, size }: TabBarIconProps) => (
