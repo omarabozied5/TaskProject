@@ -45,10 +45,10 @@ const UserCard: React.FC<UserCardProps> = ({
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#fff',
+    backgroundColor: '#87888c',
     borderRadius: 10,
     padding: 15,
-    marginBottom: 10,
+    marginBottom: 5,
     flexDirection: 'row',
   },
   profileImage: {
@@ -62,13 +62,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   name: {
-    fontSize: 18,
+    fontSize: 15,
+    width: 200,
     fontWeight: 'bold',
     marginBottom: 5,
+    color: 'black',
   },
   details: {
     fontSize: 12,
-    color: '#666',
+    color: 'white',
   },
 });
 

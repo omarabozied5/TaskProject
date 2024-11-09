@@ -1,4 +1,3 @@
-// api.ts
 import axios from 'axios';
 
 export const loginUser = async (email: string, password: string) => {
@@ -9,9 +8,8 @@ export const loginUser = async (email: string, password: string) => {
   return response.data;
 };
 
-const API_BASE_URL = 'https://fake-json-api.mock.beeceptor.com'; // Base URL for the API
+const API_BASE_URL = 'https://fake-json-api.mock.beeceptor.com';
 
-// Fetch user data
 export const fetchUsers = async () => {
   const response = await axios.get(`${API_BASE_URL}/users`);
   return response.data;

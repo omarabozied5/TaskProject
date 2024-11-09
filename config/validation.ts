@@ -1,4 +1,3 @@
-// utils/validation.ts
 import { validUsers } from './validUsers';
 
 export function validateEmail(email: string): boolean {

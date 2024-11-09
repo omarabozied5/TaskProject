@@ -8,6 +8,8 @@ import {
   CameraOptions,
 } from 'react-native-image-picker';
 import { useNavigation } from '@react-navigation/native';
+import LanguageSelector from '../localization/LanguageSelector';
+import { useTranslation } from 'react-i18next';
 
 import {
   StyleSheet,
@@ -39,6 +41,7 @@ export default function ProfileScreen({}: ProfileScreenProps) {
   const [email, setEmail] = useState<string>('');
   const [profileImage, setProfileImage] = useState<string | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const getEmail = async () => {
@@ -121,36 +124,36 @@ export default function ProfileScreen({}: ProfileScreenProps) {
         />
         <Text style={styles.email}>{email}</Text>
         {/* <Text style={styles.title}>OMAR ABOZEID</Text> */}
-        <TouchableOpacity style={styles.btns} onPress={handleUpdateProfile}>
-          <Text style={styles.socialText}>Update Profile</Text>
+        <TouchableOpacity style={styles.btnsU} onPress={handleUpdateProfile}>
+          <Text style={styles.socialText}>{t('profile.updateProfile')}</Text>
         </TouchableOpacity>
       </View>
 
       <View style={styles.follows}>
         <View style={styles.stat}>
           <Text style={styles.number}>100</Text>
-          <Text style={styles.label}>Followers</Text>
+          <Text style={styles.label}>{t('profile.followers')}</Text>
         </View>
         <View style={styles.stat}>
           <Text style={styles.number}>80</Text>
-          <Text style={styles.label}>Posts</Text>
+          <Text style={styles.label}>{t('profile.posts')}</Text>
         </View>
         <View style={styles.stat}>
           <Text style={styles.number}>150</Text>
-          <Text style={styles.label}>Following</Text>
+          <Text style={styles.label}>{t('profile.following')}</Text>
         </View>
       </View>
 
       <View style={styles.buttons}>
         <TouchableOpacity style={styles.btns}>
-          <Text style={styles.socialText}>Follow</Text>
+          <Text style={styles.socialText}>{t('profile.follow')}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.logOutBtns} onPress={handleLogOut}>
-          <Text style={styles.socialText}>LogOut</Text>
+          <Text style={styles.socialText}>{t('profile.logout')}</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.flatContainer}>
-        <Text style={styles.postsTitle}>Posts</Text>
+        <Text style={styles.postsTitle}>{t('profile.posts')}</Text>
         <FlatList
           data={images}
           keyExtractor={(item) => item.id}
@@ -169,16 +172,18 @@ export default function ProfileScreen({}: ProfileScreenProps) {
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
             <TouchableOpacity style={styles.modalButton} onPress={openCamera}>
-              <Text style={styles.modalButtonText}>Take Photo</Text>
+              <Text style={styles.modalButtonText}>
+                {t('profile.takephoto')}
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.modalButton} onPress={openGallery}>
-              <Text style={styles.modalButtonText}>Choose from Gallery</Text>
+              <Text style={styles.modalButtonText}>{t('profile.choose')}</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.modalButtonCansel}
               onPress={() => setModalVisible(false)}
             >
-              <Text style={styles.modalButtonText}>Cancel</Text>
+              <Text style={styles.modalButtonText}>{t('profile.cancel')}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -250,6 +255,16 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ddd',
   },
+  btnsU: {
+    width: 'auto',
+    alignItems: 'center',
+    backgroundColor: '#5D8AA8',
+    padding: 15,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    marginTop: 3,
+  },
   logOutBtns: {
     width: 150,
     alignItems: 'center',
@@ -265,6 +280,8 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   postsTitle: {
+    alignItems: 'center',
+    justifyContent: 'center',
     fontSize: 24,
     fontWeight: 'bold',
     marginTop: 10,

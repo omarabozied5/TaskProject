@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import LanguageSelector from '../localization/LanguageSelector';
+import { useTranslation } from 'react-i18next';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {
   StyleSheet,
@@ -7,7 +9,6 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
-  Image,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { useLoginMutation } from '../hooks/useLoginMutation';
@@ -27,6 +28,8 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+
+  const { t } = useTranslation();
 
   const mutation = useLoginMutation(navigation);
 
@@ -58,25 +61,27 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
     <ScrollView>
       <View style={styles.container}>
         <View style={styles.headerlogin}>
-          <Text style={styles.loginText}>Login</Text>
-          <Image source={require('../assets/login.png')} style={styles.logo} />
+          <Text style={styles.loginText}>{t('hey')}</Text>
+          <Text style={styles.loginText}>{t('welcome')}</Text>
+          <Text style={styles.loginText}>{t('back')}</Text>
+          {/* <Image source={require('../assets/login.png')} style={styles.logo} /> */}
         </View>
         <View style={styles.form}>
           <View style={styles.input}>
-            <Text style={styles.inputLabel}>Email address</Text>
+            <Text style={styles.inputLabel}>{t('login.email')}</Text>
             <TextInput
-              placeholder="omarabozeid@example.com"
+              placeholder="email@example.com"
               placeholderTextColor="#6b7280"
               style={styles.inputControl}
               value={email}
               onChangeText={setEmail}
             />
             {emailError ? (
-              <Text style={styles.errorText}>{emailError}</Text>
+              <Text style={styles.errorText}>{t('login.email-error')}</Text>
             ) : null}
           </View>
           <View style={styles.input}>
-            <Text style={styles.inputLabel}>Password</Text>
+            <Text style={styles.inputLabel}>{t('login.password')}</Text>
             <TextInput
               placeholder="********"
               placeholderTextColor="#6b7280"
@@ -86,42 +91,45 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
               secureTextEntry
             />
             {passwordError ? (
-              <Text style={styles.errorText}>{passwordError}</Text>
+              <Text style={styles.errorText}>{t('login.password-error')}</Text>
             ) : null}
           </View>
-          <LinearGradient colors={['#341948', '#8155ba']} style={styles.btn}>
+          <LinearGradient colors={['#87888c', '#ffffff']} style={styles.btn}>
             <TouchableOpacity
               onPress={handleLogin}
               disabled={mutation.status === 'pending'} // Comparison to check if it's loading
             >
-              <Text style={styles.btnText}>Login</Text>
+              <Text style={styles.btnText}>{t('login.button')}</Text>
             </TouchableOpacity>
           </LinearGradient>
           {mutation.status === 'pending' && ( // Use status instead of isLoading
-            <Text style={styles.loadingText}>Logging in...</Text>
+            <Text style={styles.loadingText}>{t('login.logging')}</Text>
           )}
 
-          <Text style={styles.orText}>Or Login with:</Text>
+          <Text style={styles.orText}>{t('login.orLogin')}</Text>
           <View style={styles.socialLoginContainer}>
             <TouchableOpacity style={styles.socialBtn}>
               <Icon name="google" size={24} color="#db4437" />
-              <Text style={styles.socialText}>Google</Text>
+              <Text style={styles.socialText}>{t('social.google')}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.socialBtn}>
               <Icon name="linkedin" size={24} color="#0A66C2" />
-              <Text style={styles.socialText}>LinkedIn</Text>
+              <Text style={styles.socialText}>{t('social.linkedin')}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.socialBtn}>
               <Icon name="facebook" size={24} color="#1877F2" />
-              <Text style={styles.socialText}>Facebook</Text>
+              <Text style={styles.socialText}>{t('social.facebook')}</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.newUserContainer}>
-            <Text style={styles.newUserText}>New user? </Text>
+            <Text style={styles.newUserText}>{t('newUser.new-user')}</Text>
             <TouchableOpacity>
-              <Text style={styles.createAccountText}>Create new account</Text>
+              <Text style={styles.createAccountText}>
+                {t('newUser.createnew')}
+              </Text>
             </TouchableOpacity>
           </View>
+          <LanguageSelector />
         </View>
       </View>
     </ScrollView>
@@ -132,18 +140,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingVertical: 24,
-    backgroundColor: '#d3d3ff',
+    backgroundColor: '#171717',
   },
   headerlogin: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginVertical: 50,
+    marginVertical: 10,
+    marginRight: 10,
   },
   loginText: {
-    alignSelf: 'center',
-    fontSize: 30,
+    alignSelf: 'stretch',
+    fontSize: 57,
     fontWeight: 'bold',
-    color: '#301934',
+    color: 'white',
+    marginLeft: 15,
   },
   logo: {
     width: 120,
@@ -160,7 +170,7 @@ const styles = StyleSheet.create({
   inputLabel: {
     fontSize: 15,
     fontWeight: '600',
-    color: '#222',
+    color: 'white',
     marginBottom: 8,
   },
   inputControl: {
@@ -170,7 +180,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     fontSize: 15,
     fontWeight: '500',
-    color: '#222',
+    color: 'black',
     borderWidth: 1,
     borderColor: '#C9D3DB',
     borderStyle: 'solid',
@@ -189,14 +199,14 @@ const styles = StyleSheet.create({
     fontSize: 18,
     lineHeight: 26,
     fontWeight: '600',
-    color: 'white',
+    color: 'black',
   },
   orText: {
     fontSize: 16,
     fontWeight: '600',
     textAlign: 'center',
     marginVertical: 20,
-    color: '#301934',
+    color: 'white',
   },
   socialLoginContainer: {
     flexDirection: 'row',
@@ -224,11 +234,11 @@ const styles = StyleSheet.create({
   },
   newUserText: {
     fontSize: 16,
-    color: '#222',
+    color: 'white',
   },
   createAccountText: {
     fontSize: 16,
-    color: '#301934',
+    color: 'white',
     fontWeight: 'bold',
     textDecorationLine: 'underline', // Underline the text to indicate a link
   },
@@ -241,6 +251,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 10,
     fontSize: 16,
-    color: '#301934',
+    color: 'light-green',
   },
 });

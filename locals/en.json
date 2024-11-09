@@ -1,0 +1,36 @@
+{
+  "hey": "Hey",
+  "welcome": "Welcome",
+  "back": "Back",
+  "login": {
+    "email": "Email",
+    "password": "Password",
+    "button": "Login",
+    "error": "Invalid email or password",
+    "email-error": "Please enter a valid email address",
+    "password-error": "Password must be at least 6 characters long",
+    "logging": "Logging...",
+    "orLogin": "Or Login with:"
+  },
+  "profile": {
+    "title": "Profile",
+    "updateProfile": "Update Profile",
+    "takephoto": "Take Photo",
+    "choose": "Choose from gallery",
+    "cancel": "Cancel",
+    "followers": "Followers",
+    "posts": "Posts",
+    "following": "Following",
+    "follow": "Follow",
+    "logout": "Logout"
+  },
+  "social": {
+    "google": "google",
+    "facebook": "facebook",
+    "linkedin": "linkedin"
+  },
+  "newUser": {
+    "new-user": "New user?",
+    "createnew": "Create new account"
+  }
+}
