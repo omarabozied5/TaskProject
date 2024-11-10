@@ -1,8 +1,7 @@
 import React from 'react';
-import { View, Button, StyleSheet, Text, I18nManager } from 'react-native';
+import { View, StyleSheet, Text, I18nManager } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import i18next from 'i18next';
-import RNRestart from 'react-native-restart';
 import LinearGradient from 'react-native-linear-gradient';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -11,14 +10,11 @@ const LanguageSelector = () => {
     await AsyncStorage.setItem('appLanguage', lng);
     i18next.changeLanguage(lng);
 
-    // Only set RTL if language is Arabic and the app hasn't set it before
     if (lng === 'ar' && !I18nManager.isRTL) {
       I18nManager.forceRTL(true);
     } else if (lng === 'en' && I18nManager.isRTL) {
       I18nManager.forceRTL(false);
     }
-
-    // Add a callback to refresh UI without full restart
   };
 
   return (

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import LanguageSelector from '../localization/LanguageSelector';
 import { useTranslation } from 'react-i18next';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import {
   StyleSheet,
   Text,
@@ -29,6 +28,7 @@ export default function LoginScreen({ navigation }: LoginScreenProps) {
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+
   const resetFields = () => {
     setEmail('');
     setPassword('');
